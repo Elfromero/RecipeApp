@@ -6,6 +6,7 @@
 //
 
 import Foundation
+
 enum APIError: Error, LocalizedError {
     case poorConnection, serverError, invalidResponse
     
