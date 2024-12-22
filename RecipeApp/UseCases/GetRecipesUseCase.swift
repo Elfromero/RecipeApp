@@ -8,8 +8,8 @@
 import Combine
 
 actor GetRecipesUseCase {
-    let service: RecipeServise
-    var disposeBag: Set<AnyCancellable> = []
+    private let service: RecipeServise
+    private var disposeBag: Set<AnyCancellable> = []
     
     init(service: RecipeServise) {
         self.service = service

@@ -9,10 +9,21 @@ import SwiftUI
 
 @main
 struct RecipeAppApp: App {
+    let recipeStore: RecipesStore
+    
+    init() {
+        //TODO: Add DI solution or Assembler patter.
+        let service = RemoteRecipeService()
+        let getRecipesUseCase = GetRecipesUseCase(service: service)
+        recipeStore = RecipesStore(reciepesUseCase: getRecipesUseCase)
+    }
     
     var body: some Scene {
         WindowGroup {
-            RecipesListView(recipes: [])
+            NavigationStack {
+                RecipesListView()
+                    .environmentObject(recipeStore)
+            }
         }
     }
 }

@@ -11,7 +11,7 @@ class RecipesStore: ObservableObject {
     @Published private(set) var state: RecipesState
     private let reciepesUseCase: GetRecipesUseCase
 
-    init(state: RecipesState, reciepesUseCase: GetRecipesUseCase) {
+    init(state: RecipesState = RecipesState(recipes: []), reciepesUseCase: GetRecipesUseCase) {
         self.state = state
         self.reciepesUseCase = reciepesUseCase
     }
