@@ -23,6 +23,7 @@ struct RecipeAppApp: App {
             NavigationStack {
                 RecipesListView()
                     .environmentObject(recipeStore)
+                    .environment(\.orientation, UIDevice.current.orientation)
             }
         }
     }
