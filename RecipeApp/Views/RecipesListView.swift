@@ -17,7 +17,7 @@ struct RecipesListView: View {
         .refreshable {
             store.dispatch(action: .updateRecepies)
         }
-        .onChange(of: store.state.presentedErrorMessage) { _, errorMessage in
+        .onChange(of: store.state.presentedErrorMessage) { errorMessage in
             presentingAlert = errorMessage != nil
         }
         .alert(
@@ -45,7 +45,7 @@ struct RecipesListView: View {
             }
         }
         .listStyle(.grouped)
-        .contentMargins(.vertical, 0)
+        .listRowBackground(Color.clear)
         .padding(6)
         .navigationDestination(for: Recipe.self) { recipe in
             DetailedRecipeView(recipe: recipe)

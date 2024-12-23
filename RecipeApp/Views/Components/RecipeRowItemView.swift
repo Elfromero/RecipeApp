@@ -32,7 +32,7 @@ struct RecipeRowItemView: View {
     }
 }
 
-#Preview(traits: .fixedLayout(width: 50, height: 50)) {
+#Preview {
     VStack {
         RecipeRowItemView(
             recipe: Recipe(
