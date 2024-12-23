@@ -21,6 +21,23 @@
 		BDFAD31B2D176A4800EB579F /* RecipeApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecipeApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		BDF098482D1927B4009F9C9D /* Exceptions for "RecipeApp" folder in "RecipeAppTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Models/Recipe.swift,
+				Network/APIError.swift,
+				Network/CachingImageLoader.swift,
+				Network/DTO/RecipesListDTO.swift,
+				Network/Protocols/APIEndpoint.swift,
+				Network/Protocols/APINetworkClient.swift,
+				Network/RecipeApiEndpoint.swift,
+				Network/URLSessionAPIClient.swift,
+			);
+			target = BDF0983B2D191300009F9C9D /* RecipeAppTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		BDF0983D2D191300009F9C9D /* RecipeAppTests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -29,6 +46,9 @@
 		};
 		BDFAD31D2D176A4800EB579F /* RecipeApp */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				BDF098482D1927B4009F9C9D /* Exceptions for "RecipeApp" folder in "RecipeAppTests" target */,
+			);
 			path = RecipeApp;
 			sourceTree = "<group>";
 		};
