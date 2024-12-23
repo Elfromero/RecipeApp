@@ -24,6 +24,9 @@ struct RecipesListView: View {
         .navigationDestination(for: Recipe.self) { recipe in
             DetailedRecipeView(recipe: recipe)
         }
+        .refreshable {
+            store.dispatch(action: .updateRecepies)
+        }
         .padding(6)
     }
 
