@@ -43,19 +43,15 @@ class RecipesStore: ObservableObject {
         
         switch action {
         case .updateRecepies:
-            //Show loader
-            break
+            state.showLoader = true
         case .didRecieveRecepies(let recipes):
+            state.showLoader = false
             state.recipes = recipes
-            if let selectedRecipe = state.selectedRecipe, !recipes.contains(selectedRecipe) {
-                state.selectedRecipe = nil
-            }
-        case .didSelect(let recipe):
-            state.selectedRecipe = recipe
         case .showError(let errorString):
-            state.presentedError = errorString
+            state.showLoader = false
+            state.presentedErrorMessage = errorString
         case .hideError:
-            state.presentedError = nil
+            state.presentedErrorMessage = nil
         }
         return state
     }
@@ -63,14 +59,13 @@ class RecipesStore: ObservableObject {
 
 struct RecipesState {
     var recipes: [Recipe]
-    var selectedRecipe: Recipe?
-    var presentedError: String?
+    var showLoader: Bool = false
+    var presentedErrorMessage: String?
 }
 
 enum RecipesAction {
     case updateRecepies
     case didRecieveRecepies([Recipe])
-    case didSelect(Recipe)
     case showError(String)
     case hideError
 }

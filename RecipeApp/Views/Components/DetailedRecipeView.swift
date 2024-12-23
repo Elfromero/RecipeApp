@@ -10,19 +10,15 @@ import SwiftUI
 struct DetailedRecipeView: View {
     let recipe: Recipe
     @State var showSource: Bool = false
-    @Environment(\.orientation) private var orientation
     
     init(recipe: Recipe) {
         self.recipe = recipe
     }
     
     var body: some View {
-        Group {
-            if orientation.isLandscape {
-                landscapeContent
-            } else {
-                portraitContent
-            }
+        VStack {
+            image
+            info
         }
         .sheet(isPresented: $showSource) {
             SafariWebView(
@@ -30,67 +26,6 @@ struct DetailedRecipeView: View {
                 readerMode: true
             )
             .navigationBarTitle(Text(recipe.name), displayMode: .inline)
-        }
-    }
-    
-    private var portraitContent: some View {
-        VStack {
-            image
-            Text(recipe.name)
-                .font(.system(size: 22, weight: .semibold))
-            Text(recipe.cuisine)
-                .font(.system(size: 14))
-            Spacer()
-                .frame(height: 18)
-            if sourceUrl != nil {
-                Button {
-                    showSource = true
-                } label: {
-                    Text("Open recipe")
-                }
-                .buttonStyle(.borderedProminent)
-            }
-
-            Spacer()
-            if canOpenYoutubeVideo {
-                Button(action: openInYoutube) {
-                    Text("Open in youtube")
-                }
-                .buttonStyle(.bordered)
-                .padding(.bottom, 12)
-            }
-        }
-    }
-    
-    private var landscapeContent: some View {
-        HStack() {
-            image
-            VStack {
-                Spacer()
-                Text(recipe.name)
-                    .font(.system(size: 22, weight: .semibold))
-                Text(recipe.cuisine)
-                    .font(.system(size: 14))
-                Spacer()
-                    .frame(maxHeight: 18)
-                if sourceUrl != nil {
-                    Button {
-                        showSource = true
-                    } label: {
-                        Text("Open recipe")
-                    }
-                    .buttonStyle(.borderedProminent)
-                }
-                Spacer()
-                if canOpenYoutubeVideo {
-                    Button(action: openInYoutube) {
-                        Text("Open in youtube")
-                    }
-                    .buttonStyle(.bordered)
-                    .padding(.bottom, 12)
-                }
-            }
-            .frame(maxWidth: .infinity)
         }
     }
     
@@ -108,6 +43,33 @@ struct DetailedRecipeView: View {
             .init(color: Color("White").opacity(0.6), location: 0.85),
             .init(color: .clear, location: 1)
         ]), startPoint: .top, endPoint: .bottom))
+    }
+    
+    private var info: some View {
+        Group {
+            Text(recipe.name)
+                .font(.system(size: 22, weight: .semibold))
+            Text(recipe.cuisine)
+                .font(.system(size: 14))
+            Spacer()
+                .frame(maxHeight: 18)
+            if sourceUrl != nil {
+                Button {
+                    showSource = true
+                } label: {
+                    Text("Open recipe")
+                }
+                .buttonStyle(.borderedProminent)
+            }
+            Spacer()
+            if canOpenYoutubeVideo {
+                Button(action: openInYoutube) {
+                    Text("Open in youtube")
+                }
+                .buttonStyle(.bordered)
+                .padding(.bottom, 12)
+            }
+        }
     }
     
     private var sourceUrl: URL? {
@@ -132,9 +94,7 @@ struct DetailedRecipeView: View {
         } else {
             application.open(webURL)
         }
-    }
-    
-        
+    }        
 }
 
 #Preview {

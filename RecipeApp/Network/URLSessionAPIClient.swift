@@ -27,11 +27,15 @@ class URLSessionAPIClient<Endpoint: APIEndpoint>: APINetworkClient {
         return URLSession.shared.dataTaskPublisher(for: request)
             .subscribe(on: DispatchQueue.global(qos: .background))
             .tryMap { data, response -> Data in
-                guard let httpResponse = response as? HTTPURLResponse,
-                      (200...299).contains(httpResponse.statusCode) else {
-                    throw APIError.invalidResponse
+                if let httpResponse = response as? HTTPURLResponse {
+                    switch httpResponse.statusCode {
+                    case 200...299: return data
+                    case 400...499: throw APIError.invalidResponse
+                    case 500...599: throw APIError.poorConnection
+                    default: throw APIError.invalidResponse
+                    }
                 }
-                return data
+                throw APIError.invalidResponse
             }
             .decode(type: T.self, decoder: decoder)
             .eraseToAnyPublisher()

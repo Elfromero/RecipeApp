@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct CachedAsyncImage: View {
     let remoteImageLoader: CachingImageLoader
@@ -20,7 +21,7 @@ struct CachedAsyncImage: View {
             .resizable()
             .renderingMode(.original)
             .task {
-                self.imageData = (try? await remoteImageLoader.data) ?? NSDataAsset(name: "image_loading_error")?.data
+                self.imageData = (try? await remoteImageLoader.data) ?? UIImage(named: "image_loading_error")?.pngData()
             }
     }
     

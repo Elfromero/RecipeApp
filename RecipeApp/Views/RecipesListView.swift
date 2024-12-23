@@ -9,7 +9,32 @@ import SwiftUI
 
 struct RecipesListView: View {
     @EnvironmentObject var store: RecipesStore
-
+    @State private var presentingAlert = false
+    
+    var body: some View {
+        content
+        .navigationTitle("Roman's Recipes")
+        .refreshable {
+            store.dispatch(action: .updateRecepies)
+        }
+        .onChange(of: store.state.presentedErrorMessage) { _, errorMessage in
+            presentingAlert = errorMessage != nil
+        }
+        .alert(
+            "Error",
+            isPresented: $presentingAlert,
+            actions: {
+                Button("OK", role: .cancel) {
+                    store.dispatch(action: .hideError)
+                }
+            },
+            message: { Text(store.state.presentedErrorMessage ?? "") }
+        )
+        .task {
+            store.dispatch(action: .updateRecepies)
+        }
+    }
+    
     private var content: some View {
         List {
             ForEach(store.state.recipes) { recipe in
@@ -21,26 +46,16 @@ struct RecipesListView: View {
         }
         .listStyle(.grouped)
         .contentMargins(.vertical, 0)
+        .padding(6)
         .navigationDestination(for: Recipe.self) { recipe in
             DetailedRecipeView(recipe: recipe)
         }
-        .refreshable {
-            store.dispatch(action: .updateRecepies)
-        }
-        .padding(6)
-    }
-
-    var body: some View {
-        Group {
-            if store.state.recipes.isEmpty {
+        .overlay {
+            if store.state.showLoader {
                 ProgressView()
-            } else {
-                content
+            } else if store.state.recipes.isEmpty {
+                Text("Recipes list is empty.")
             }
-        }
-        .navigationTitle("Roman's Recipes")
-        .task {
-            store.dispatch(action: .updateRecepies)
         }
     }
 }
