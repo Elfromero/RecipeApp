@@ -5,7 +5,7 @@
 //  Created by Roman Radchuk on 12/21/24.
 //
 
-struct Recipe: Decodable, Hashable {
+struct Recipe: Decodable, Hashable, Identifiable {
     let cuisine: String
     let name: String
     let photoUrlLarge: String?
@@ -13,4 +13,6 @@ struct Recipe: Decodable, Hashable {
     let uuid: String
     let source_url: String?
     let youtube_url: String?
+    
+    var id: String { uuid }
 }

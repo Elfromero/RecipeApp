@@ -11,13 +11,20 @@ struct RecipesListView: View {
     @EnvironmentObject var store: RecipesStore
 
     private var content: some View {
-        ScrollView {
-            VStack(spacing: 0) {
-                ForEach(store.state.recipes, id: \.uuid) { recipe in
-                    Text(recipe.name)
+        List {
+            ForEach(store.state.recipes) { recipe in
+                NavigationLink(value: recipe) {
+                    RecipeRowItemView(recipe: recipe)
                 }
+                .listRowSeparator(.hidden)
             }
         }
+        .listStyle(.grouped)
+        .contentMargins(.vertical, 0)
+        .navigationDestination(for: Recipe.self) { recipe in
+            DetailedRecipeView(recipe: recipe)
+        }
+        .padding(6)
     }
 
     var body: some View {

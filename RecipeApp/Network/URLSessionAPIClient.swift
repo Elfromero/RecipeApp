@@ -9,6 +9,14 @@ import Foundation
 import Combine
 
 class URLSessionAPIClient<Endpoint: APIEndpoint>: APINetworkClient {
+    private let decoder: JSONDecoder
+    
+    init() {
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        self.decoder = decoder
+    }
+    
     func request<T: Decodable>(_ endpoint: Endpoint) -> AnyPublisher<T, Error> {
         let url = endpoint.baseURL.appendingPathComponent(endpoint.path)
         var request = URLRequest(url: url)
@@ -25,7 +33,7 @@ class URLSessionAPIClient<Endpoint: APIEndpoint>: APINetworkClient {
                 }
                 return data
             }
-            .decode(type: T.self, decoder: JSONDecoder())
+            .decode(type: T.self, decoder: decoder)
             .eraseToAnyPublisher()
     }
 }
