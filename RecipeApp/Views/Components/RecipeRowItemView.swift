@@ -41,8 +41,8 @@ struct RecipeRowItemView: View {
                 photoUrlLarge: "https://upload.wikimedia.org/wikipedia/commons/c/c2/Kung-pao-shanghai.jpg",
                 photoUrlSmall: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Kung-pao-shanghai.jpg/500px-Kung-pao-shanghai.jpg",
                 uuid: "1111111",
-                source_url: "https://en.wikipedia.org/wiki/Kung_Pao_chicken",
-                youtube_url: "https://youtu.be/Ar3qVJyfSVs?si=FVIj3Vk1GPdjg2yD"
+                sourceUrl: "https://en.wikipedia.org/wiki/Kung_Pao_chicken",
+                youtubeUrl: "https://youtu.be/Ar3qVJyfSVs?si=FVIj3Vk1GPdjg2yD"
             )
         )
     }

@@ -11,8 +11,8 @@ struct Recipe: Decodable, Hashable, Identifiable {
     let photoUrlLarge: String?
     let photoUrlSmall: String?
     let uuid: String
-    let source_url: String?
-    let youtube_url: String?
+    let sourceUrl: String?
+    let youtubeUrl: String?
     
     var id: String { uuid }
 }
