@@ -38,6 +38,7 @@ struct RecipesListView: View {
                 content
             }
         }
+        .navigationTitle("Roman's Recipes")
         .task {
             store.dispatch(action: .updateRecepies)
         }
