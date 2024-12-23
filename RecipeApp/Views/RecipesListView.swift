@@ -14,6 +14,7 @@ struct RecipesListView: View {
         ScrollView {
             VStack(spacing: 0) {
                 ForEach(store.state.recipes, id: \.uuid) { recipe in
+                    Text(recipe.name)
                 }
             }
         }
@@ -26,6 +27,9 @@ struct RecipesListView: View {
             } else {
                 content
             }
+        }
+        .task {
+            store.dispatch(action: .updateRecepies)
         }
     }
 }

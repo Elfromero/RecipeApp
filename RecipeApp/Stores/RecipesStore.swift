@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class RecipesStore: ObservableObject {
     @Published private(set) var state: RecipesState
     private let reciepesUseCase: GetRecipesUseCase

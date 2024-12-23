@@ -18,8 +18,12 @@ actor GetRecipesUseCase {
     func execute() async throws -> [Recipe] {
         return try await withCheckedThrowingContinuation { continuation in
             service.getRecipe()
-                .sink { error in
-                    continuation.resume(throwing: error as! Error)
+                .sink { completion in
+                    switch completion {
+                    case .failure(let error):
+                        continuation.resume(throwing: error)
+                    case .finished: break
+                    }
                 } receiveValue: { recipes in
                     continuation.resume(returning: recipes)
                 }

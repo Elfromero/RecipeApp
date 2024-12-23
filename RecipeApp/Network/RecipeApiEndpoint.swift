@@ -11,13 +11,13 @@ enum RecipeApiEndpoint: APIEndpoint {
     case getRecipes
     
     var baseURL: URL {
-        return URL(string: "https://example.com/api")!
+        return URL(string: "https://d3jbb8n5wk0qxi.cloudfront.net")!
     }
     
     var path: String {
         switch self {
         case .getRecipes:
-            return "recipes.json"
+            return "/recipes.json"
         }
     }
     

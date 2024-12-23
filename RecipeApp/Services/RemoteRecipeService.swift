@@ -11,6 +11,9 @@ class RemoteRecipeService: RecipeServise {
     let apiClient = URLSessionAPIClient<RecipeApiEndpoint>()
     
     func getRecipe() -> AnyPublisher<[Recipe], Error> {
-        return apiClient.request(.getRecipes)
+        let publisher: AnyPublisher<RecipesListDTO, Error> = apiClient.request(.getRecipes)
+        return publisher
+            .map(\.recipes)
+            .eraseToAnyPublisher()
     }
 }
