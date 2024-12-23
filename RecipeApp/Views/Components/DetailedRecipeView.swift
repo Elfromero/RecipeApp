@@ -39,8 +39,8 @@ struct DetailedRecipeView: View {
             }
         }
         .mask(LinearGradient(gradient: Gradient(stops: [
-            .init(color: Color("White"), location: 0),
-            .init(color: Color("White").opacity(0.6), location: 0.85),
+            .init(color: .white, location: 0),
+            .init(color: .white.opacity(0.6), location: 0.85),
             .init(color: .clear, location: 1)
         ]), startPoint: .top, endPoint: .bottom))
     }
